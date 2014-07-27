@@ -1,16 +1,31 @@
 Description of the variables in the tidy summary of the Human Activity Survey dataset
 =====================================================================================
 
-The tidy summary of the Human Activity Survey dataset contains 180 rows and 68 columns. Below are the 68 column variables in this dataset along with a brief description. "SubjectID" is a number between 1 and 30, "TypeOfActivity" is a string identifier, and the remaining are means and standard deviations of measurements (such as accerlation, angular velocity, acceleration-jerk, and gyroscope-jerk - either from the body or due to gravity). These are normalized, with values between -1 and +1.
+The Human Activity dataset proivded contained two parts, a "training" dataset and a "test" dataset, with each row of the dataset representing a set of measurements taken at a point in time for a subject performing an activity, and the columns containing the different variables and parameters that were measured in this experiment.
 
 The variables selected for this database come from the accelerometer and gyroscope 3-axial raw signals. These time domain signals were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
 Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals. Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm.
 
-Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing corresponding frequency domain signals of accerlation, angular velocity, acceleration-jerk, and gyroscope-jerk coming from the body and from gravity
+Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing corresponding frequency domain signals of accerlation, angular velocity, acceleration-jerk, and gyroscope-jerk coming from the body and from gravity.
 
-These signals were used to estimate variables of the feature vector for each pattern:  
-'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+The following sequence of steps was followed to obtain the tidy data from the original data
+
+Download, unzip and load all the required files into R 
+
+1) Merge the "train" and the "test" datasets, along with the subject and activity identifiers, to create one data set. These two datasets were 7352x561 and 2947x561 in size respectively, so the merged dataset is 10299x563 in size
+
+2) Extract only the measurements on the mean and standard deviation for each measurement. This was done by searching the variable names for the keywords "mean" and "std" but excluding the variable names that had "meanFreq", the reason being that "meanFreq" is not really a measurement done on the subject. This resulted in a dataset of size 10299x68 
+
+3) Use descriptive activity names to name the activities in the data set. This information is given in the file titled "activity_labels.txt"
+
+4) Appropriately label the data set with descriptive variable names. This was done by expanding the short forms,capitalizing appropriately, and inserting dots in order to increase readability
+
+5) Create a second, independent tidy data set with the average of each variable for each activity and each subject. This was done using the "aggregate" function in R, which resulted in a dataset of size 180x68
+
+6) Output this dataset to a table file called "tidy_data.txt"
+
+The tidy summary of the Human Activity Survey dataset contains 180 rows and 68 columns. Below are the 68 column variables in this dataset along with a brief description. "SubjectID" is a number between 1 and 30, "TypeOfActivity" is a string identifier, and the remaining are means and standard deviations of measurements (such as accerlation, angular velocity, acceleration-jerk, and gyroscope-jerk - either from the body or due to gravity). These are normalized and unit-less, with values between -1 and +1. 
 
 **SubjectID** : 
 Identification number of the subject. A number from 1-30

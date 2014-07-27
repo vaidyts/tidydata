@@ -57,7 +57,7 @@ all <- rbind(cbind(subject_train,y_train,X_train),cbind(subject_test,y_test,X_te
 all_mean_std <- cbind(all["SubjectID"], all["TypeOfActivity"], all[,grep("mean",names(all))], all[,grep("std",names(all))])
 
 # I subtract the column names that contain the mean of the frequencies 
-# these aren't really measurements done on the subject - atleast that is my understanding/assumption
+# these aren't really measurements done on the subject - atleast that is my assumption
 # Final table contains 10299 rows x 68 columns
 all_mean_std <- all_mean_std[ , grep("meanFreq",names(all_mean_std),invert=TRUE) ]
 
@@ -80,7 +80,7 @@ for (i in seq(1,11,2)) { all_mean_std$TypeOfActivity <- gsub(activity_labels[i],
 # t --> TimeDomain, f --> Frequency Domain
 # X --> Xaxis, Y --> YAxis, Z --> ZAxis
 # Mag --> Magnitude, Acc --> Acceleration, std --> StandardDeviation, Gyro --> Gyroscope
-# I also inserted dots separating the long variable names in a way that I thought would increase readability
+# I also inserted dots to increase readability, since the variable names are quite long
 
 tmp <- names(all_mean_std)
 tmp <- gsub("\\.","",tmp)
@@ -99,5 +99,5 @@ summary_data <- aggregate(all_mean_std[,3:68],by=c(all_mean_std["SubjectID"],all
 write.table(summary_data,"tidy_data.txt")
 
 ####################
-# END OF ASSIGNMENT !
+# END OF ASSIGNMENT 
 ####################
